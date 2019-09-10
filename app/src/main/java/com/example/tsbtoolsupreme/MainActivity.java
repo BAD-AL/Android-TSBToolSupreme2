@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.util.Vector;
 
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.app.Activity;
@@ -139,7 +140,7 @@ public class MainActivity extends Activity {
 				OutputStream stream = getContentResolver().openOutputStream(romUri);
 				CurrentTool.SaveRom(stream);
 			}
-			catch (IOException e ) {
+			catch (Exception e ) {
 				message = "ERROR! "+ e.getMessage();
 			}
 			Toast.makeText(this,  message, Toast.LENGTH_LONG).show();
@@ -199,8 +200,13 @@ public class MainActivity extends Activity {
 	}
 
 	private void showFileChooser() {
-	    Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-	    intent.setType("*/*"); 
+	    Intent intent = new Intent();
+		if( Build.VERSION.SDK_INT < 19)
+			intent.setAction((Intent.ACTION_GET_CONTENT));
+		else
+			intent.setAction((Intent.ACTION_OPEN_DOCUMENT));
+
+	    intent.setType("*/*");
 	    intent.addCategory(Intent.CATEGORY_OPENABLE);
 
 	    try {
