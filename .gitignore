@@ -2,6 +2,8 @@
 Thumbs.db
 ehthumbs.db
 ehthumbs_vista.db
+.gradle
+app/build/
 
 # Folder config file
 Desktop.ini
